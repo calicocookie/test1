@@ -2,3 +2,21 @@
 
 
 <h1 class="mb-3">ページA</h1>
+<h2 class="mb-3">楽天商品検索</h2></h2>
+
+
+<!--検索-->
+<%= form_with(model: @book, url: page_a_path, method: :get) do |f| %>
+  <%= f.label :title, 'タイトル' %>
+  <%= f.text_field :title %>
+  <%= f.submit '検索' %>
+<% end %>
+
+<!--表示-->
+<% if @books %>
+  <% @books.each do |book| %>
+    <%= image_tag book.image_url %>
+    <%= book.title %>
+    <%= book.author %>
+  <% end %>
+<% end %>

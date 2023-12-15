@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :homes
   
   # 2層目
-  get 'home/page_a', to: 'homes#page_a', as: 'page_a'
+  get 'home/page_a', to: 'homes#page_a', as: 'page_a' # ここのページに楽天の商品検索を入れる
   get 'home/page_b', to: 'homes#page_b', as: 'page_b'
 
   # 3層目
