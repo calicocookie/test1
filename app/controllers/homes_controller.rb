@@ -4,7 +4,14 @@ class HomesController < ApplicationController
     @homes = Home.all
   end
   
+  
+  
   def page_a
+    
+    # 過去の全レコードを表に表示したいので、インスタンス変数に代入
+    # @book = Book.all #これやるとダメ見たい
+    
+    # 楽天ブックスで検索した結果をBook（booksテーブル）に格納していく。追加形式（上書きではない）
     #ここで空の配列を作ります
     @books = []
     @title = params[:title]
@@ -18,17 +25,23 @@ class HomesController < ApplicationController
       #read(result)については、privateメソッドとして、設定しております。
       results.each do |result|
         book = Book.new(read(result))
-        @books << book
+        @books << book # 作成したbookオブジェクトを@booksという配列に追加
       end
     end
-    #「@books」内の各データをそれぞれ保存していきます。
+    #「@books」内の各データをそれぞれBook(テーブル)保存していきます。
     #すでに保存済の本は除外するためにunlessの構文を記載しています。
     @books.each do |book|
       unless Book.all.include?(book)
         book.save
       end
     end
+    
+
+    
   end
+  
+  
+
   
  
   
@@ -41,7 +54,7 @@ class HomesController < ApplicationController
     author = result["author"]
     url = result["itemUrl"]
     isbn = result["isbn"]
-    image_url = result["mediumImageUrl"].gsub('?_ex=120x120', '')
+    #image_url = result["mediumImageUrl"].gsub('?_ex=120x120', '')
     #book_genre_id = result["booksGenreId"]
     #item_caption = result["itemCaption"]
     {
@@ -49,7 +62,7 @@ class HomesController < ApplicationController
       author: author,
       url: url,
       isbn: isbn,
-      image_url: image_url,
+      #image_url: image_url,
       #book_genre_id: book_genre_id,
       #item_caption: item_caption
     }
